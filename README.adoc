@@ -1,0 +1,47 @@
+== COMPILE Time @Annotation Processing
+
+==== Compile the annotation processor class.
+```
+javac src/FinalMethodAnnotationProcessor.java src/FinalMethod.java -d classes
+
+```
+
+==== Compile the source code with -processor key specifiing the annotation processor class
+
+```
+javac -cp classes/ -processor FinalMethodAnnotationProcessor -d classes src/Sample.java
+
+```
+=== Experiment
+
+.with `FinalMethodAnnotationProcessor` :
+- Remove the `final` modifer of close method from the class Sample.java
+- Compile the annoation processor, then compile the source code with preceding command.
+  
+.with `RetentionPolicy` 
+- Change the retenion policy to (SOURCE, CLASS, RUNTIME) in the class `FinalMethod.java`.
+- Compile the annotation processor, then compile the source code with preceding command.
+- Run the command `java -v classes/Sample` then output must be different.
+
+Example:
+
+- When `RetentionPolicy.CLASS` the output will be:
+
+      RuntimeInvisibleAnnotations:
+      0: #27()
+        FinalMethod
+
+NOTE: Annotations with CLASS retention policy are included in the class file but are not accessible at runtime.
+     
+- When `RetentionPolicy.RUNTIME` the output will be:
+    
+    RuntimeVisibleAnnotations:
+      0: #27()
+        FinalMethod
+
+NOTE: Annotations with RUNTIME retention policy are included in the class file and are accessible at runtime via reflection.
+
+
+- When `RetentionPolicy.SOURCE` annotation is not visible in class file. 
+
+NOTE: Annotations with SOURCE retention policy are discarded by the compiler and are not included in the class file.
