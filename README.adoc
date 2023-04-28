@@ -21,7 +21,7 @@ javac -cp classes/ -processor FinalMethodAnnotationProcessor -d classes src/Samp
 .with `RetentionPolicy` 
 - Change the retenion policy to (SOURCE, CLASS, RUNTIME) in the class `FinalMethod.java`.
 - Compile the annotation processor, then compile the source code with preceding command.
-- Run the command `java -v classes/Sample` then output must be different.
+- Run the command `java -v classes/Sample` then output may vary according to retention policy.
 
 Example:
 
